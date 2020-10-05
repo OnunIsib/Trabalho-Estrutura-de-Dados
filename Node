@@ -1,0 +1,17 @@
+public class Node
+{
+    public string nome;
+    public string email;
+    public string numero;
+    public Node next;
+    //public Node ant;
+
+    public Node(string nome, string email, string numero)
+    {
+        this.nome = nome;
+        this.email = email;
+        this.numero = numero;
+        next = null;
+        //ant = null;
+    }
+}
