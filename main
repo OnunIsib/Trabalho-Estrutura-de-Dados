@@ -1,0 +1,105 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+
+  class main
+  {
+    static void Main(string[] args)
+    { 
+      Console.WriteLine("-----------------------------");
+      Console.WriteLine("- Aperte ENTER para iniciar -");
+      Console.WriteLine("-----------------------------");
+      
+      Lista list = new Lista();
+      string w = Console.ReadLine();
+      do
+      {        
+        Console.Write("\n## Lista telefonica ##\n");
+        Console.WriteLine("  SELECIONE UMA OPÇÃO ");
+        Console.WriteLine("-----------------------");
+        Console.Write("[1] ADICIONAR CONTATO\n");
+        Console.Write("[2] REMOVER CONTATO\n");
+        Console.Write("[3] ATUALIZAR CONTATO\n");
+        Console.Write("[4] ENCONTRAR CONTATO\n");
+        Console.Write("[5] MOSTRAR LISTA\n");
+        Console.Write("[6] ORDENAR POR NOME\n");
+        Console.Write("[7] ORDENAR POR E-MAIL\n");
+        Console.Write("[8] NAVEGAR EM CONTATOS\n");
+        Console.Write("[9] SALVAR LISTA\n");
+        Console.Write("-----------------------\n\n");
+        string v = Console.ReadLine();
+        switch (v)
+        {
+          case "1":
+            Console.Clear();
+            Console.WriteLine("Digite as seguintes informaçoes\n");
+            Console.Write("\nNome:");
+            string nome = Console.ReadLine();
+            Console.Write("\nEmail:");
+            string email = Console.ReadLine();
+            Console.Write("\nNumero:"); string numero = Console.ReadLine();
+            list.addLista(nome, email, numero);
+            break;
+          case "2":
+            Console.WriteLine("Digite as seguintes informaçoes\n");
+            Console.Write("\nQual contato deseja remover :");
+            string achar2 = Console.ReadLine();
+            list.removeLista(achar2);
+            break;
+          case "3":
+            Console.WriteLine("Digite as seguintes informaçoes\n");
+            Console.Write("\nQual contato deseja atualizar :"); string achar1 = Console.ReadLine();
+            Console.WriteLine("atualize o contato");
+            Console.Write("\nNome:"); string nome1 = Console.ReadLine();
+            Console.Write("\nEmail:"); string email1 = Console.ReadLine();
+            Console.Write("\nNumero:"); string numero1 = Console.ReadLine();
+            list.atualiza(nome1, email1, numero1, achar1);
+            break;
+          case "4":
+            Console.WriteLine("digite as seguintes informaçoes\n");
+            Console.Write("\nNome:"); string achar = Console.ReadLine();
+            list.Find(achar);
+            break;
+          case "5":
+            Console.WriteLine("Sua Lista");
+            list.printaLista();
+            break;
+          case "6":
+            list.ordenaNome();            
+            break;
+          case "7":
+            list.ordenaEmail();
+            break;
+          case "8":
+            var t = "0";
+            do
+            {
+              Console.Write("\nNavegar 'n' Sair 's':\n"); string navegar = Console.ReadLine();
+              switch (navegar)
+              {
+                case "n":
+                  list.navegar();
+                  break;
+                case "N":
+                  list.navegar();
+                  break;
+                case "s" :
+                  t = "1";
+                  break;
+                  case "S" :
+                  t = "1";
+                  break;                  
+              }
+            } while (t == "0");
+            break;
+          case "9":
+            list.salvaArquivo();            
+            break;
+          case "Exit":
+            w = "Exit";
+            break;
+        }
+      } while (w != "Exit");
+    }
+  }
