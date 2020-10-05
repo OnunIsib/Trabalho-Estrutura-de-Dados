@@ -1,0 +1,234 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Text;
+using System.IO;
+using System.Linq;
+
+  public class Lista
+  {
+        public Node head;
+        //public Node tail;
+        public Lista()
+        {
+            head = null;
+            //tail = null;
+        }       
+        //////////////////////////////////////////////////////////////////
+        // adicionar
+        public void addLista(string nome, string email, string numero)
+        {
+            var newNode = new Node(nome, email, numero);            
+            Node aux = head;
+            if (head != null)
+            {
+                while (aux.next != head)
+                {
+                    aux = aux.next;
+                }
+            } else
+            {
+                aux = newNode;
+            }
+            newNode.next = head;
+            head = newNode;
+            aux.next = head; 
+        }
+        //////////////////////////////////////////////////////////////////
+        // remover
+        public void removeLista(string achar)
+        {
+            if (head == null)
+            {
+                Console.Write("Lista Vazia.");
+            }
+            Node aux = head;
+            Node ant = null;
+            if (achar == head.nome && head.next == head)
+            {
+                head = null;
+                Console.WriteLine("Contato removido");
+            }
+            else if(achar == head.nome && head.next != head)
+            {
+                head = head.next;
+                head.next = head;
+                Console.WriteLine("Contato removido");
+            }
+            else
+            {       
+                while (aux.nome != achar && ant != head)
+                {
+                    ant = aux;
+                    aux = aux.next;
+                }
+                if (achar == aux.nome)
+                {
+                    ant.next = aux.next;
+                    Console.WriteLine("Contato removido");
+                }
+                else {
+                    Console.WriteLine("Contato nao encontrado");
+                }
+            }
+          }
+        //////////////////////////////////////////////////////////////////
+        // atualiza
+        public void atualiza(string nome, string email, string numero, string achar)
+        {
+           var aux2 = Find(achar);
+            if (aux2.nome == achar)
+            {
+                aux2.nome = nome;
+                aux2.numero = numero;
+                aux2.email = email;
+                Console.WriteLine("Contato atualizado com sucesso");
+            }
+            else {
+                Console.WriteLine("Nao encontrado");
+            }
+        }
+        //////////////////////////////////////////////////////////////////
+        // procura
+        public  Node Find(string nome)
+        {
+          if (head == null)
+          {
+            Console.Write("Lista Vazia.");
+          }
+          var aux = head;
+          if (aux.nome == nome)
+          {
+            Console.WriteLine($"-> [{aux.nome},{aux.email},{aux.numero}]");
+            return aux;
+          }
+          aux = aux.next;
+          while (aux.nome != nome && aux == head)
+          {
+            aux = aux.next;
+          }
+          if (aux.nome == nome)
+          {
+            Console.WriteLine($"-> [{aux.nome},{aux.email},{aux.numero}");
+            return aux;
+          }
+            else
+          {
+            Console.WriteLine("Contato nao encontrado");
+            return head;
+          }
+        }
+        //////////////////////////////////////////////////////////////////
+        // printar
+        public void printaLista()
+        {
+
+          if (head == null)
+          {
+            Console.Write("Lista Vazia.");
+          }
+          var aux = head;
+          try
+          {
+            do
+            {
+              Console.WriteLine($"-> [{aux.nome},{aux.email},{aux.numero}]");
+              aux = aux.next;
+            } while (aux != head);
+
+            Console.WriteLine("[FIM DA LISTA]");
+          }
+          catch
+          {
+            Console.WriteLine("\nErro");
+          }
+        }
+        //////////////////////////////////////////////////////////////////
+        // salvar 
+        public void salvaArquivo()
+        {
+          if (head == null)
+          {
+            Console.Write("Lista Vazia.");
+          }
+          using (System.IO.StreamWriter sw = new System.IO.StreamWriter("text", true))
+          try
+          {
+            var aux = head;
+            do
+            {
+              sw.Write($"-->[{aux.nome},{aux.email},{aux.numero}]  ");
+              aux = aux.next;
+            } while (aux != head);
+            sw.Write("-->[HEAD]  ");
+            Console.WriteLine("Gravado com sucesso");             
+            sw.Close();
+          }
+          catch (Exception e)
+          {
+           Console.WriteLine("Exception: " + e.Message);
+          }
+          finally
+          {
+            Console.WriteLine("Executing finally block.");
+          }
+        }
+        //////////////////////////////////////////////////////////////////
+        // navegar
+    public void navegar()
+    {
+      if (head == null)
+      {
+        Console.Write("Lista Vazia.");
+        
+      }else{
+        Console.Write($"-> [{head.nome},{head.email},{head.numero}]");
+        head = head.next;
+      }    
+    }
+       //////////////////////////////////////////////////////////////////
+       // ordenar email
+    public void ordenaEmail()
+    {
+      if (head == null)
+      {
+        Console.WriteLine("Lista Vazia.");
+      }
+      Node aux = head;
+      int compara = String.Compare(aux.email, aux.next.email, comparisonType: StringComparison.OrdinalIgnoreCase);
+      do{
+        if(compara < 0){
+
+        } else if(compara > 0){
+
+        }else{
+          
+        }
+        Console.Write($"-> [{aux.nome},{aux.email},{aux.numero}]");
+        aux = aux.next;
+      }while(aux != head); 
+    }
+        //////////////////////////////////////////////////////////////////
+        // ordenar nome
+    public void ordenaNome()
+    {    
+      if (head == null)
+      {
+        Console.WriteLine("Lista Vazia.");
+      }
+      Node aux = head;
+      int compara = String.Compare(aux.nome, aux.next.nome, comparisonType: StringComparison.OrdinalIgnoreCase);
+      do{
+        if(compara < 0){ // aux é menor q aux.next
+
+        } else if(compara > 0){ // aux é maior q aux.next
+
+        }else{// aux é igual aux.next
+          
+        }
+        Console.Write($"-> [{aux.nome},{aux.email},{aux.numero}]");
+        aux = aux.next;
+      }while(aux != head);
+    }      
+  } 
+        
